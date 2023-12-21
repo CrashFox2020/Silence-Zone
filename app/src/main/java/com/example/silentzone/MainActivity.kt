@@ -21,13 +21,13 @@ class MainActivity : AppCompatActivity() {
             0
         )
         setContentView(binding.root)
-        binding.floatingActionButton7.setOnClickListener(){
+        binding.playFAB.setOnClickListener(){
             Intent(applicationContext,LocationService::class.java).apply {
                 action=LocationService.ACTION_START
                 startService(this)
             }
         }
-        binding.floatingActionButton6.setOnClickListener(){
+        binding.stopFAB.setOnClickListener(){
             Intent(applicationContext,LocationService::class.java).apply {
                 action=LocationService.ACTION_STOP
                 startService(this)
