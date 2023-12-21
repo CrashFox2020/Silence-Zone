@@ -21,12 +21,15 @@ class MainActivity : AppCompatActivity() {
             0
         )
         setContentView(binding.root)
+
+
         binding.playFAB.setOnClickListener(){
             Intent(applicationContext,LocationService::class.java).apply {
                 action=LocationService.ACTION_START
                 startService(this)
             }
         }
+
         binding.stopFAB.setOnClickListener(){
             Intent(applicationContext,LocationService::class.java).apply {
                 action=LocationService.ACTION_STOP
