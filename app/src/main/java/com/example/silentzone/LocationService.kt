@@ -22,11 +22,16 @@ class LocationService: Service() {
 
     override fun onBind(p0: Intent?): IBinder? {
         return null
+
+
+    }
+
+    override fun onCreate() {
+        super.onCreate()
         locationClient=DefaultLocationClient(
             applicationContext,
             LocationServices.getFusedLocationProviderClient(applicationContext)
         )
-
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -44,7 +49,7 @@ class LocationService: Service() {
             .setSmallIcon(R.drawable.ic_launcher_background)
             .setOngoing(true)
         val notificationManager=getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        locationClient.getLocationUpdate(10000L)
+        locationClient.getLocationUpdate(10L)
             .catch { e->e.printStackTrace() }
             .onEach { location ->
                 val lat=location.latitude.toString()

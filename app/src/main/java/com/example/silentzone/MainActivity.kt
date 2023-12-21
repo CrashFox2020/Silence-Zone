@@ -1,7 +1,10 @@
 package com.example.silentzone
 
+import android.Manifest
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.app.ActivityCompat
 import com.example.silentzone.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -9,7 +12,26 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding=ActivityMainBinding.inflate(layoutInflater)
-
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ),
+            0
+        )
         setContentView(binding.root)
+        binding.floatingActionButton7.setOnClickListener(){
+            Intent(applicationContext,LocationService::class.java).apply {
+                action=LocationService.ACTION_START
+                startService(this)
+            }
+        }
+        binding.floatingActionButton6.setOnClickListener(){
+            Intent(applicationContext,LocationService::class.java).apply {
+                action=LocationService.ACTION_STOP
+                startService(this)
+            }
+        }
     }
 }
