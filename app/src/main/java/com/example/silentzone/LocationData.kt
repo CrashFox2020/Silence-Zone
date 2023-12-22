@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 data class LocationData(
     @PrimaryKey
     val id: String,
+    val name: String,
     val longitude: Float,
     val latitude: Float
 )

@@ -5,6 +5,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.app.ActivityCompat
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.room.Room
 import com.example.silentzone.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -20,17 +23,19 @@ class MainActivity : AppCompatActivity() {
             ),
             0
         )
+
+
         setContentView(binding.root)
 
 
-        binding.playFAB.setOnClickListener(){
+        binding.startButton.setOnClickListener(){
             Intent(applicationContext,LocationService::class.java).apply {
                 action=LocationService.ACTION_START
                 startService(this)
             }
         }
 
-        binding.stopFAB.setOnClickListener(){
+        binding.stopButton.setOnClickListener(){
             Intent(applicationContext,LocationService::class.java).apply {
                 action=LocationService.ACTION_STOP
                 startService(this)
