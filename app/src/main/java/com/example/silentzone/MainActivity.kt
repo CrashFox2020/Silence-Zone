@@ -1,15 +1,19 @@
 package com.example.silentzone
 
 import android.Manifest
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.content.getSystemService
 import com.example.silentzone.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var checkLocationServiceIntent: Intent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,10 +29,10 @@ class MainActivity : AppCompatActivity() {
 
 
         setContentView(binding.root)
-
-        checkLocationServiceIntent=Intent(this,CheckLocationService::class.java)
-        startService(checkLocationServiceIntent)
-
+        var nm: NotificationManager=getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.M&&!nm.isNotificationPolicyAccessGranted){
+            startActivity(Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS))
+        }
         binding.startButton.setOnClickListener(){
 
             Intent(applicationContext,LocationService::class.java).apply {

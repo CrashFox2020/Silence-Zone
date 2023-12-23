@@ -5,7 +5,11 @@ import android.app.NotificationManager
 import android.app.Service
 import android.content.Context
 import android.content.Intent
+import android.media.AudioManager
+import android.media.Ringtone
+import android.media.RingtoneManager
 import android.os.IBinder
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.CoroutineScope
@@ -19,7 +23,7 @@ import kotlinx.coroutines.flow.onEach
 class LocationService: Service() {
     private val serviceScope = CoroutineScope(SupervisorJob()+Dispatchers.IO)
     private lateinit var locationClient: LocationClient
-
+    private lateinit var locationDataDao: LocationDataDao
 
 
     override fun onBind(p0: Intent?): IBinder? {
@@ -34,6 +38,7 @@ class LocationService: Service() {
             applicationContext,
             LocationServices.getFusedLocationProviderClient(applicationContext)
         )
+        locationDataDao=LocationDataDatabase.getDatabase(applicationContext).locationDataDao()
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -51,6 +56,8 @@ class LocationService: Service() {
             .setSmallIcon(R.drawable.ic_launcher_background)
             .setOngoing(true)
         val notificationManager=getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        var audioManager=getSystemService(Context.AUDIO_SERVICE) as AudioManager
+
         locationClient.getLocationUpdate(10L)
             .catch { e->e.printStackTrace() }
             .onEach { location ->
@@ -62,7 +69,16 @@ class LocationService: Service() {
                 CommonVariables.currentLatitude=lat.toDouble()
                 CommonVariables.currentLongitude=long.toDouble()
                 notificationManager.notify(1,updateNotification.build())
+                val locationExists=locationDataDao.isLocationExists(CommonVariables.currentLatitude,CommonVariables.currentLongitude)
 
+                if(locationExists && audioManager.ringerMode==AudioManager.RINGER_MODE_NORMAL){
+                    Log.i("Hello","Yes")
+                    audioManager.ringerMode=AudioManager.RINGER_MODE_VIBRATE
+                }
+                else if(!locationExists && audioManager.ringerMode==AudioManager.RINGER_MODE_VIBRATE){
+                    Log.i("Hello","No")
+                    audioManager.ringerMode=AudioManager.RINGER_MODE_NORMAL
+                }
 
             }
             .launchIn(serviceScope)
@@ -71,6 +87,8 @@ class LocationService: Service() {
     }
 
     private fun stop(){
+        var audioManager=getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        audioManager.ringerMode=AudioManager.RINGER_MODE_NORMAL
         stopForeground(true)
         stopSelf()
     }

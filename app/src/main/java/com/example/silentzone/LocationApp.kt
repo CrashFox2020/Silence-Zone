@@ -19,5 +19,6 @@ class LocationApp: Application() {
             notificationManager.createNotificationChannel(channel)
 
         }
+
     }
 }

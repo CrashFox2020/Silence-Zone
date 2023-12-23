@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
 
     <application
         android:name=".LocationApp"
@@ -21,10 +23,7 @@
         tools:targetApi="31">
         <service android:name=".LocationService" android:foregroundServiceType="location"
             tools:ignore="ForegroundServicePermission" />
-        <service
-            android:name=".CheckLocationService"
-            android:enabled="true"
-            android:exported="false" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

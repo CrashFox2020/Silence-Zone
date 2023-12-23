@@ -17,4 +17,7 @@ interface LocationDataDao {
     @Query("SELECT * FROM locationdata")
     fun getLocationData(): LiveData<List<LocationData>>
 
+    @Query("SELECT * from locationdata WHERE latitude= :latitude AND longitude= :longitude")
+    fun isLocationExists(latitude: Double,longitude: Double): Boolean
+
 }
