@@ -1,6 +1,6 @@
 package com.example.silentzone
 
 object CommonVariables {
-    var currentLongitude : Float=0.0F
-    var currentLatitude : Float=90.0F
+    var currentLongitude : Double=0.0
+    var currentLatitude : Double=90.0
 }

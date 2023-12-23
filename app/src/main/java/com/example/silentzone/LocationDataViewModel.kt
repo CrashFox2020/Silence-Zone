@@ -8,7 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class LocationDataViewModel(application: Application): AndroidViewModel(application) {
-    private val getLocationData: LiveData<List<LocationData>>
+    val getLocationData: LiveData<List<LocationData>>
     private val repository: LocationDataRepository
 
     init {

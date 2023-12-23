@@ -20,6 +20,8 @@ class LocationService: Service() {
     private val serviceScope = CoroutineScope(SupervisorJob()+Dispatchers.IO)
     private lateinit var locationClient: LocationClient
 
+
+
     override fun onBind(p0: Intent?): IBinder? {
         return null
 
@@ -57,9 +59,11 @@ class LocationService: Service() {
                 val updateNotification=notification.setContentText(
                     "Location: ($lat,$long)"
                 )
-                CommonVariables.currentLatitude=lat.toFloat()
-                CommonVariables.currentLongitude=long.toFloat()
+                CommonVariables.currentLatitude=lat.toDouble()
+                CommonVariables.currentLongitude=long.toDouble()
                 notificationManager.notify(1,updateNotification.build())
+
+
             }
             .launchIn(serviceScope)
         startForeground(1,notification.build())

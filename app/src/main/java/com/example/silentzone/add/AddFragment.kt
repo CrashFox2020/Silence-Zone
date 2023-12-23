@@ -51,10 +51,10 @@ class AddFragment : Fragment() {
     private fun insertDatatoDatabase(){
         val longitude=CommonVariables.currentLongitude
         val latitude=CommonVariables.currentLatitude
-        val id=longitude.toString()+latitude.toString()
+        val id=latitude.toString()+longitude.toString()
         val name=binding.nameEditText.text.toString()
         if(!(TextUtils.isEmpty(name))){
-            val locationData=LocationData(id,name,longitude,latitude)
+            val locationData=LocationData(id,name,latitude,longitude)
             mLocationDataViewModel.upsertLocationData(locationData)
             Toast.makeText(requireContext(),"Successfully added",Toast.LENGTH_LONG).show()
 
