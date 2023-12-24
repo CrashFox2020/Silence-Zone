@@ -35,7 +35,7 @@
         android:id="@+id/rangeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Range"
+        android:text="Range(mi)"
         android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@+id/rangeEditText"
         app:layout_constraintEnd_toEndOf="parent"

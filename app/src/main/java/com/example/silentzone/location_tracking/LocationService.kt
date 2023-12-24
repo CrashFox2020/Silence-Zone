@@ -70,13 +70,10 @@ class LocationService: Service() {
                 CommonVariables.currentLatitude =lat.toDouble()
                 CommonVariables.currentLongitude =long.toDouble()
                 notificationManager.notify(1,updateNotification.build())
-                val locationExists=locationDataDao.isLocationExists(
-                    CommonVariables.currentLatitude,
-                    CommonVariables.currentLongitude
-                )
+                val locationExists=isLocationExists()
 
                 if(locationExists && audioManager.ringerMode==AudioManager.RINGER_MODE_NORMAL){
-                    Log.i("Hello","Yes")
+                    Log.i("Hello1","Yes")
                     audioManager.ringerMode=AudioManager.RINGER_MODE_VIBRATE
                 }
                 else if(!locationExists && audioManager.ringerMode==AudioManager.RINGER_MODE_VIBRATE){
@@ -105,5 +102,49 @@ class LocationService: Service() {
     companion object {
         const val ACTION_START="ACTION_START"
         const val ACTION_STOP="ACTION_STOP"
+    }
+
+    private fun isLocationExists(): Boolean{
+
+        val multiple=0.0145//1mile is about 0.0145 degrees
+        var lowLatitude=CommonVariables.currentLatitude-CommonVariables.range*multiple
+        var highLatitude=CommonVariables.currentLatitude+CommonVariables.range*multiple
+        var lowLongitude=CommonVariables.currentLongitude-CommonVariables.range*multiple
+        var highLongitude=CommonVariables.currentLongitude+CommonVariables.range*multiple
+        var lat=0
+        var long=0
+        if(lowLatitude>=-90&&highLatitude<=90&&lowLongitude>=-180&&highLongitude<=180){
+            Log.i("Hello","Yes")
+            return locationDataDao.isCorrectCorrect(lowLatitude,highLatitude,lowLongitude,highLongitude)
+        }
+        if(lowLatitude<-90){
+            lowLatitude=90-(-90-lowLatitude)
+            lat=1
+        }
+        else if(highLatitude>90){
+            highLatitude=-90+(highLatitude-90)
+            lat=1
+        }
+        if(lowLongitude<-180){
+            lowLongitude=180-(-180-lowLongitude)
+            long=1
+        }
+        else if(highLongitude>180){
+            highLongitude=180+(highLongitude-180)
+            long=1
+        }
+        if(lat==0&&long==0){
+            return locationDataDao.isCorrectCorrect(lowLatitude,highLatitude,lowLongitude,highLongitude)
+        }
+        else if(lat==0&&long==1){
+            return locationDataDao.isCorrectWrong(lowLatitude,highLatitude,lowLongitude,highLongitude)
+        }
+        else if(lat==1&&long==0){
+            return locationDataDao.isWrongCorrect(lowLatitude,highLatitude,lowLongitude,highLongitude)
+        }
+
+        return locationDataDao.isWrongWrong(lowLatitude,highLatitude,lowLongitude,highLongitude)
+
+
     }
 }
