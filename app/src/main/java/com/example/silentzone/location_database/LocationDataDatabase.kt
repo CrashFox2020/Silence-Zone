@@ -1,9 +1,10 @@
-package com.example.silentzone
+package com.example.silentzone.location_database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+
 @Database(
     entities = [LocationData::class],
     version = 1
@@ -15,7 +16,7 @@ abstract class LocationDataDatabase: RoomDatabase() {
         @Volatile
         private var INSTANCE: LocationDataDatabase?=null
 
-        fun getDatabase(context: Context): LocationDataDatabase{
+        fun getDatabase(context: Context): LocationDataDatabase {
             val tempInstance= INSTANCE
             if(tempInstance!=null){
                 return tempInstance
@@ -26,7 +27,7 @@ abstract class LocationDataDatabase: RoomDatabase() {
                     LocationDataDatabase::class.java,
                     "locationdata"
                 ).build()
-                INSTANCE=instance
+                INSTANCE =instance
                 return instance
             }
         }

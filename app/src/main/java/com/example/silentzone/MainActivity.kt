@@ -9,8 +9,8 @@ import android.os.Bundle
 import android.provider.Settings
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.content.getSystemService
 import com.example.silentzone.databinding.ActivityMainBinding
+import com.example.silentzone.location_tracking.LocationService
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -35,8 +35,8 @@ class MainActivity : AppCompatActivity() {
         }
         binding.startButton.setOnClickListener(){
 
-            Intent(applicationContext,LocationService::class.java).apply {
-                action=LocationService.ACTION_START
+            Intent(applicationContext, LocationService::class.java).apply {
+                action= LocationService.ACTION_START
                 startService(this)
             }
 
@@ -44,8 +44,8 @@ class MainActivity : AppCompatActivity() {
 
         binding.stopButton.setOnClickListener(){
 
-            Intent(applicationContext,LocationService::class.java).apply {
-                action=LocationService.ACTION_STOP
+            Intent(applicationContext, LocationService::class.java).apply {
+                action= LocationService.ACTION_STOP
                 startService(this)
             }
 

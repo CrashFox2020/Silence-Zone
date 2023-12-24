@@ -1,4 +1,4 @@
-package com.example.silentzone
+package com.example.silentzone.location_tracking
 
 import android.Manifest
 import android.content.Context

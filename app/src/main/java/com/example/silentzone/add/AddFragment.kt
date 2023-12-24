@@ -1,9 +1,7 @@
 package com.example.silentzone.add
 
-import android.content.Context
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,11 +10,10 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.silentzone.CommonVariables
-import com.example.silentzone.LocationData
-import com.example.silentzone.LocationDataViewModel
+import com.example.silentzone.location_database.LocationData
+import com.example.silentzone.location_database.LocationDataViewModel
 import com.example.silentzone.R
 import com.example.silentzone.databinding.FragmentAddBinding
-import com.example.silentzone.databinding.FragmentListBinding
 
 
 class AddFragment : Fragment() {
@@ -31,8 +28,8 @@ class AddFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentAddBinding.inflate(inflater, container, false)
-        binding.longitudeTextView.text="Longitude : "+CommonVariables.currentLongitude.toString()
-        binding.latitudeTextView.text="Latitude : "+CommonVariables.currentLatitude.toString()
+        binding.addLongitudeTextView.text="Longitude : "+CommonVariables.currentLongitude.toString()
+        binding.addLatitudeTextView.text="Latitude : "+CommonVariables.currentLatitude.toString()
         val view = binding.root
 
         mLocationDataViewModel=ViewModelProvider(this).get(LocationDataViewModel::class.java)
@@ -52,9 +49,9 @@ class AddFragment : Fragment() {
         val longitude=CommonVariables.currentLongitude
         val latitude=CommonVariables.currentLatitude
         val id=latitude.toString()+longitude.toString()
-        val name=binding.nameEditText.text.toString()
+        val name=binding.addNameEditText.text.toString()
         if(!(TextUtils.isEmpty(name))){
-            val locationData=LocationData(id,name,latitude,longitude)
+            val locationData= LocationData(id,name,latitude,longitude)
             mLocationDataViewModel.upsertLocationData(locationData)
             Toast.makeText(requireContext(),"Successfully added",Toast.LENGTH_LONG).show()
 

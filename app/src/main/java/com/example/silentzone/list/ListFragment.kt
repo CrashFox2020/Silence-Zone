@@ -5,12 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.silentzone.LocationDataViewModel
+import com.example.silentzone.location_database.LocationDataViewModel
 import com.example.silentzone.R
 import com.example.silentzone.databinding.FragmentListBinding
 

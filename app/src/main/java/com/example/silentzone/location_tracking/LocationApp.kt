@@ -1,4 +1,4 @@
-package com.example.silentzone
+package com.example.silentzone.location_tracking
 
 import android.app.Application
 import android.app.NotificationChannel

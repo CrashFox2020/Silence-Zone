@@ -1,4 +1,4 @@
-package com.example.silentzone
+package com.example.silentzone.location_tracking
 
 import android.location.GnssNavigationMessage
 import android.location.Location

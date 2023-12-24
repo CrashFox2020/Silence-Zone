@@ -1,10 +1,11 @@
-package com.example.silentzone
+package com.example.silentzone.location_database
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Query
 import androidx.room.Upsert
+import com.example.silentzone.location_database.LocationData
 
 @Dao
 interface LocationDataDao {

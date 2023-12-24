@@ -2,10 +2,11 @@ package com.example.silentzone.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.silentzone.LocationData
+import com.example.silentzone.location_database.LocationData
 import com.example.silentzone.databinding.CustomRowBinding
 
 class LocationDataAdapter: ListAdapter<LocationData,LocationDataAdapter.LocationDataViewHolder>(DiffCallback()) {
@@ -14,7 +15,6 @@ class LocationDataAdapter: ListAdapter<LocationData,LocationDataAdapter.Location
             binding.rowNameTextView.text=locationData.name
             binding.rowLatitudeTextView.text=locationData.latitude.toString()
             binding.rowLongitudeTextView.text=locationData.longitude.toString()
-
         }
     }
 
@@ -26,6 +26,11 @@ class LocationDataAdapter: ListAdapter<LocationData,LocationDataAdapter.Location
     override fun onBindViewHolder(holder: LocationDataViewHolder, position: Int) {
         val currentItem=getItem(position)
         holder.bind(currentItem)
+        holder.itemView.setOnClickListener {
+            val action = ListFragmentDirections.actionListFragmentToUpdateFragment(currentItem)
+            holder.itemView.findNavController().navigate(action)
+        }
+
 
     }
 
