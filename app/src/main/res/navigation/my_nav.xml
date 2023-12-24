@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_listFragment_to_updateFragment"
             app:destination="@id/updateFragment" />
+        <action
+            android:id="@+id/action_listFragment_to_changeRangeFragment"
+            app:destination="@id/changeRangeFragment" />
     </fragment>
     <fragment
         android:id="@+id/addFragment"
@@ -35,6 +38,15 @@
             app:argType="com.example.silentzone.location_database.LocationData" />
         <action
             android:id="@+id/action_updateFragment_to_listFragment"
+            app:destination="@id/listFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/changeRangeFragment"
+        android:name="com.example.silentzone.change_range.ChangeRangeFragment"
+        android:label="fragment_change_range"
+        tools:layout="@layout/fragment_change_range" >
+        <action
+            android:id="@+id/action_changeRangeFragment_to_listFragment"
             app:destination="@id/listFragment" />
     </fragment>
 </navigation>

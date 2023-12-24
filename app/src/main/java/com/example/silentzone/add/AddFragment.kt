@@ -28,8 +28,8 @@ class AddFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentAddBinding.inflate(inflater, container, false)
-        binding.addLongitudeTextView.text="Longitude : "+CommonVariables.currentLongitude.toString()
-        binding.addLatitudeTextView.text="Latitude : "+CommonVariables.currentLatitude.toString()
+        binding.addLongitudeTextView.setText(CommonVariables.currentLongitude.toString())
+        binding.addLatitudeTextView.setText(CommonVariables.currentLatitude.toString())
         val view = binding.root
 
         mLocationDataViewModel=ViewModelProvider(this).get(LocationDataViewModel::class.java)
@@ -46,11 +46,11 @@ class AddFragment : Fragment() {
     }
 
     private fun insertDatatoDatabase(){
-        val longitude=CommonVariables.currentLongitude
-        val latitude=CommonVariables.currentLatitude
+        val longitude=binding.addLongitudeTextView.text.toString().toDoubleOrNull()
+        val latitude=binding.addLatitudeTextView.text.toString().toDoubleOrNull()
         val id=latitude.toString()+longitude.toString()
         val name=binding.addNameEditText.text.toString()
-        if(!(TextUtils.isEmpty(name))){
+        if(!(TextUtils.isEmpty(name))&&latitude!=null&&longitude!=null){
             val locationData= LocationData(id,name,latitude,longitude)
             mLocationDataViewModel.upsertLocationData(locationData)
             Toast.makeText(requireContext(),"Successfully added",Toast.LENGTH_LONG).show()
@@ -58,7 +58,7 @@ class AddFragment : Fragment() {
             findNavController().navigate(R.id.action_addFragment_to_listFragment)
         }
         else{
-            Toast.makeText(requireContext(),"Please fill out all fields",Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(),"Please fill valid values in all fields",Toast.LENGTH_LONG).show()
         }
 
     }

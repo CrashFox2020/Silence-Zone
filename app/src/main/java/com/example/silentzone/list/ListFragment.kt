@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.silentzone.CommonVariables
 import com.example.silentzone.location_database.LocationDataViewModel
 import com.example.silentzone.R
 import com.example.silentzone.databinding.FragmentListBinding
@@ -29,6 +30,10 @@ class ListFragment : Fragment() {
 
         binding.addFAB.setOnClickListener(){
             findNavController().navigate(R.id.action_listFragment_to_addFragment)
+        }
+        binding.rangeTextView.text="Range: "+CommonVariables.range.toString()+"mi"
+        binding.changeButton.setOnClickListener(){
+            findNavController().navigate(R.id.action_listFragment_to_changeRangeFragment)
         }
         val recyclerView=binding.recyclerView
         val locationDataAdapter=LocationDataAdapter()

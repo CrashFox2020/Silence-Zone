@@ -32,8 +32,8 @@ class UpdateFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentUpdateBinding.inflate(inflater, container, false)
         binding.updateNameEditText.setText(args.selectedLocationData.name)
-        binding.updateLatitudeTextView.setText(args.selectedLocationData.latitude.toString())
-        binding.updateLongitudeTextView.setText(args.selectedLocationData.longitude.toString())
+        binding.updateLatitudeTextView.setText("Latitude: "+args.selectedLocationData.latitude.toString())
+        binding.updateLongitudeTextView.setText("Longitude: "+args.selectedLocationData.longitude.toString())
 
         mLocationDataViewModel= ViewModelProvider(this).get(LocationDataViewModel::class.java)
 
